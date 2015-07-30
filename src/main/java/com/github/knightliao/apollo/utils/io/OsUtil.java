@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * @author knightliao
- * 
  */
 public final class OsUtil {
 
@@ -25,9 +23,11 @@ public final class OsUtil {
 
     /**
      * 建多层目录
-     * 
+     *
      * @param filePath
+     *
      * @return boolean
+     *
      * @throws
      * @Description: make directory
      */
@@ -42,7 +42,9 @@ public final class OsUtil {
 
     /**
      * @param filePathString
+     *
      * @return boolean
+     *
      * @throws Exception
      * @Description: 文件或目录是否存在
      * @author liaoqiqi
@@ -56,13 +58,15 @@ public final class OsUtil {
 
     /**
      * @param pathElements
+     *
      * @return boolean
+     *
      * @throws Exception
      * @Description: JOIN PATH
      * @author liaoqiqi
      * @date 2013-6-13
      */
-    public static String pathJoin(final String...pathElements) {
+    public static String pathJoin(final String... pathElements) {
 
         final String path;
 
@@ -111,7 +115,9 @@ public final class OsUtil {
     /**
      * @param src
      * @param dest
+     *
      * @return void
+     *
      * @Description: 转移文件
      * @author liaoqiqi
      * @date 2013-6-20
@@ -132,12 +138,14 @@ public final class OsUtil {
     /**
      * @param src
      * @param dest
+     *
      * @return void
+     *
      * @Description: 具有重试机制的 ATOM 转移文件 ，并且会校验文件是否一致 才替换
      * @author liaoqiqi
      * @date 2013-6-20
      */
-    public static void transferFileAtom(File src, File dest) throws Exception {
+    public static void transferFileAtom(File src, File dest, boolean isDeleteSource) throws Exception {
 
         // 文件锁所在文件
         File lockFile = new File(dest + ".lock");
@@ -159,7 +167,9 @@ public final class OsUtil {
                             // 判断内容是否一样
                             if (FileUtils.isFileEqual(src, dest)) {
                                 // 删除
-                                src.delete();
+                                if (isDeleteSource) {
+                                    src.delete();
+                                }
                                 break;
                             }
                         }
@@ -170,7 +180,9 @@ public final class OsUtil {
                         transferFile(src, dest);
 
                         // 删除
-                        src.delete();
+                        if (isDeleteSource) {
+                            src.delete();
+                        }
 
                         break;
                     }
