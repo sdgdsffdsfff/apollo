@@ -1,13 +1,17 @@
 package com.github.knightliao.apollo.utils.time;
 
-import org.apache.commons.lang.time.DateFormatUtils;
-import org.apache.commons.lang.time.FastDateFormat;
-
 import java.text.Format;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.FastDateFormat;
 
 /**
  * 日期格式化utils
@@ -22,8 +26,7 @@ public final class DateUtils {
     public static final int HOUR = 3;
     public static final int DAY = 4;
     public static final int MILLI_FACTOR = 1000;
-    public static final FastDateFormat ISO_DATETIME_FORMAT = FastDateFormat
-            .getInstance("yyyy-MM-dd HH:mm:ss");
+    public static final FastDateFormat ISO_DATETIME_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
     /**
      * DSP 系统里默认的日期格式
      */
@@ -52,6 +55,7 @@ public final class DateUtils {
      *
      * @param pDate  Date
      * @param format String 日期格式
+     *
      * @return String 代表日期的字符串
      */
     public static String formatDate(java.util.Date pDate, String format) {
@@ -109,8 +113,7 @@ public final class DateUtils {
      */
     public static Date parseDate(String date, String pattern) {
         try {
-            return org.apache.commons.lang.time.DateUtils.parseDate(date,
-                    new String[]{pattern});
+            return org.apache.commons.lang.time.DateUtils.parseDate(date, new String[] {pattern});
         } catch (ParseException e) {
             return null;
         }
@@ -128,8 +131,7 @@ public final class DateUtils {
             return null;
         }
         try {
-            return org.apache.commons.lang.time.DateUtils.parseDate(date,
-                    new String[]{DSP_DEFAULT_TIME_FORMAT});
+            return org.apache.commons.lang.time.DateUtils.parseDate(date, new String[] {DSP_DEFAULT_TIME_FORMAT});
         } catch (ParseException e) {
             return null;
         }
@@ -176,8 +178,7 @@ public final class DateUtils {
      * @version 1.0
      */
     public static Date addMilliseconds(Date date, int amount) {
-        return org.apache.commons.lang.time.DateUtils.addMilliseconds(date,
-                amount);
+        return org.apache.commons.lang.time.DateUtils.addMilliseconds(date, amount);
     }
 
     /**
@@ -205,14 +206,11 @@ public final class DateUtils {
             default:
                 return diff / org.apache.commons.lang.time.DateUtils.MILLIS_PER_DAY;
             case HOUR:
-                return diff
-                        / org.apache.commons.lang.time.DateUtils.MILLIS_PER_HOUR;
+                return diff / org.apache.commons.lang.time.DateUtils.MILLIS_PER_HOUR;
             case MINUTE:
-                return diff
-                        / org.apache.commons.lang.time.DateUtils.MILLIS_PER_MINUTE;
+                return diff / org.apache.commons.lang.time.DateUtils.MILLIS_PER_MINUTE;
             case SECOND:
-                return diff
-                        / org.apache.commons.lang.time.DateUtils.MILLIS_PER_SECOND;
+                return diff / org.apache.commons.lang.time.DateUtils.MILLIS_PER_SECOND;
         }
     }
 
@@ -312,8 +310,9 @@ public final class DateUtils {
 
     private static Calendar getADayOfWeek(Calendar day, int dayOfWeek) {
         int week = day.get(Calendar.DAY_OF_WEEK);
-        if (week == dayOfWeek)
+        if (week == dayOfWeek) {
             return day;
+        }
         int diffDay = dayOfWeek - week;
         if (week == Calendar.SUNDAY) {
             diffDay -= 7;
@@ -331,8 +330,7 @@ public final class DateUtils {
      * @author dulin
      * @version 4.0.14
      */
-    public static String parseFullFormat(String dateStr, String pattern,
-                                         int addDays) {
+    public static String parseFullFormat(String dateStr, String pattern, int addDays) {
         try {
             Date date = parseDate(dateStr, pattern);
             if (addDays != 0) {
@@ -348,15 +346,16 @@ public final class DateUtils {
      * 返回指定字符串表示的日期，时，分，秒为0
      *
      * @param date ： 格式为yyyyMMdd
+     *
      * @return
+     *
      * @throws ParseException
      * @author zengyunfeng
      * @version 1.1.0
      */
     public static Date strToDate(String date) throws ParseException {
 
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-                "yyyyMMdd");
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMdd");
 
         java.util.Date d = sdf.parse(date);
 
@@ -367,15 +366,16 @@ public final class DateUtils {
      * 返回指定字符串表示的日期，时，分，秒为0
      *
      * @param date ： 格式为yyyyMMdd
+     *
      * @return
+     *
      * @throws ParseException
      * @author zengyunfeng
      * @version 1.1.0
      */
     public static Date stringToDate(String date) throws ParseException {
 
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-                "yyyy-MM-dd");
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
         java.util.Date d = sdf.parse(date);
 
@@ -386,15 +386,16 @@ public final class DateUtils {
      * 返回指定字符串表示的时间，分，秒为0
      *
      * @param time :格式为yyyyMMdd:HH
+     *
      * @return
+     *
      * @throws ParseException
      * @author zengyunfeng
      * @version 1.1.0
      */
     public static Date strToTime(String time) throws ParseException {
 
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-                "yyyyMMdd:HH");
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMdd:HH");
 
         java.util.Date d = sdf.parse(time);
 
@@ -407,8 +408,7 @@ public final class DateUtils {
      * @return String 时间字符串
      */
     public static String getHourStr() {
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-                "yyyyMMddHH");
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHH");
         return sdf.format(new Date());
     }
 
@@ -416,12 +416,13 @@ public final class DateUtils {
      * 返回指定格式的时间字符串：yyyy-MM-dd HH:mm:ss
      *
      * @param date
+     *
      * @return
+     *
      * @throws :12:32
      */
     public static String getDateStr(Date date) {
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss");
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(date);
     }
 
@@ -431,6 +432,7 @@ public final class DateUtils {
      * @param year  int 年
      * @param month int 月
      * @param day   int 日
+     *
      * @return Date java.util.Date类型的对象
      */
     public static Date getDate(int year, int month, int day) {
@@ -454,11 +456,11 @@ public final class DateUtils {
      * @param month int 月
      * @param day   int 日
      * @param hour  int 小时
+     *
      * @return Date java.util.Date对象
      */
     public static Date getDate(int year, int month, int day, int hour) {
-        GregorianCalendar d = new GregorianCalendar(year, month - 1, day, hour,
-                0);
+        GregorianCalendar d = new GregorianCalendar(year, month - 1, day, hour, 0);
         return d.getTime();
     }
 
@@ -487,9 +489,8 @@ public final class DateUtils {
     public static Date getRoundedDayCurDate() {
         Calendar cal = new GregorianCalendar();
 
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
-                .getTime();
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+                   .getTime();
     }
 
     /**
@@ -500,15 +501,15 @@ public final class DateUtils {
     public static Date getRoundedDay(Date dt) {
         Calendar cal = new GregorianCalendar();
         cal.setTime(dt);
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
-                .getTime();
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+                   .getTime();
     }
 
     /**
      * 生成圆整至小时的当前时间 例如：若给定时间为（2004-08-01 11:30:58），将获得（2004-08-01 11:00:00）的日期对象
      *
      * @param dt Date java.util.Date对象
+     *
      * @return Date java.util.Date对象
      */
     public static Date getRoundedHourDate(Date dt) {
@@ -529,13 +530,15 @@ public final class DateUtils {
      * 00:00:00）的日期对象 若给定时间为（2004-08-31 11:30:58），将获得（2004-09-01 00:00:00）的日期对象
      *
      * @param dt Date 给定的java.util.Date对象
+     *
      * @return Date java.util.Date对象
      */
 
     public static Date getNextDay(Date dt) {
 
-        if (dt == null)
+        if (dt == null) {
             return dt;
+        }
 
         Calendar cal = new GregorianCalendar();
         cal.setTime(dt);
@@ -554,8 +557,9 @@ public final class DateUtils {
 
     // added by zhuqian 2009-03-25
     public static Date getPreviousDay(Date dt) {
-        if (dt == null)
+        if (dt == null) {
             return dt;
+        }
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(dt);
@@ -566,15 +570,17 @@ public final class DateUtils {
     /**
      * @param dt      Date 给定的java.util.Date对象
      * @param weekDay int 就是周几的”几“，周日是7
+     *
      * @return Date java.util.Date对象
      */
     public static Date getWeekDay(Date dt, int weekDay) {
         Calendar cal = new GregorianCalendar();
         cal.setTime(dt);
-        if (weekDay == 7)
+        if (weekDay == 7) {
             weekDay = 1;
-        else
+        } else {
             weekDay++;
+        }
         cal.set(GregorianCalendar.DAY_OF_WEEK, weekDay);
         return cal.getTime();
     }
@@ -584,6 +590,7 @@ public final class DateUtils {
      * 00:00:00）的日期对象 若给定时间为（2004-08-31 11:30:58），将获得（2004-09-01 00:00:00）的日期对象
      *
      * @param dt Date 给定的java.util.Date对象
+     *
      * @return Date java.util.Date对象
      */
     public static Date getNextDay(Date dt, Long n) {
@@ -591,9 +598,8 @@ public final class DateUtils {
         Calendar cal = new GregorianCalendar();
         cal.setTime(dt);
 
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
-                + n.intValue()).getTime();
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                                        cal.get(Calendar.DAY_OF_MONTH) + n.intValue()).getTime();
 
     }
 
@@ -602,6 +608,7 @@ public final class DateUtils {
      *
      * @param dt
      * @param n
+     *
      * @return上午11:16:22
      */
     public static Date getNextMonth(Date dt, Long n) {
@@ -609,17 +616,13 @@ public final class DateUtils {
         Calendar cal = new GregorianCalendar();
         cal.setTime(dt);
 
-        Calendar firstCal = new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH) + n.intValue(), 1);
-        if (firstCal.getActualMaximum(Calendar.DAY_OF_MONTH) < cal
-                .get(Calendar.DAY_OF_MONTH)) {
-            return new GregorianCalendar(cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH) + n.intValue(),
-                    firstCal.getActualMaximum(Calendar.DAY_OF_MONTH)).getTime();
+        Calendar firstCal = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + n.intValue(), 1);
+        if (firstCal.getActualMaximum(Calendar.DAY_OF_MONTH) < cal.get(Calendar.DAY_OF_MONTH)) {
+            return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + n.intValue(),
+                                            firstCal.getActualMaximum(Calendar.DAY_OF_MONTH)).getTime();
         } else {
-            return new GregorianCalendar(cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH) + n.intValue(),
-                    cal.get(Calendar.DAY_OF_MONTH)).getTime();
+            return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + n.intValue(),
+                                            cal.get(Calendar.DAY_OF_MONTH)).getTime();
         }
 
     }
@@ -630,6 +633,7 @@ public final class DateUtils {
      *
      * @param dt
      * @param n
+     *
      * @return上午11:22:39
      */
     public static Date getNextMonthExtention(Date dt, Long n) {
@@ -637,17 +641,14 @@ public final class DateUtils {
         Calendar cal = new GregorianCalendar();
         cal.setTime(dt);
 
-        Calendar firstCal = new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH) + n.intValue(), 1);
-        if (firstCal.getActualMaximum(Calendar.DAY_OF_MONTH) < cal
-                .get(Calendar.DAY_OF_MONTH)) {
-            return new GregorianCalendar(cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH) + n.intValue() + 1, 1).getTime();
+        Calendar firstCal = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + n.intValue(), 1);
+        if (firstCal.getActualMaximum(Calendar.DAY_OF_MONTH) < cal.get(Calendar.DAY_OF_MONTH)) {
+            return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + n.intValue() + 1, 1)
+                       .getTime();
 
         } else {
-            return new GregorianCalendar(cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH) + n.intValue(),
-                    cal.get(Calendar.DAY_OF_MONTH)).getTime();
+            return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + n.intValue(),
+                                            cal.get(Calendar.DAY_OF_MONTH)).getTime();
         }
     }
 
@@ -679,9 +680,8 @@ public final class DateUtils {
     public static Date getNextDay() {
 
         Calendar cal = GregorianCalendar.getInstance();
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH) + 1)
-                .getTime();
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                                        cal.get(Calendar.DAY_OF_MONTH) + 1).getTime();
 
     }
 
@@ -689,6 +689,7 @@ public final class DateUtils {
      * 将java.util.Date类型的对象转换为java.sql.Timestamp类型的对象
      *
      * @param dt Date
+     *
      * @return Timestamp
      */
     public static java.sql.Timestamp convertSqlDate(Date dt) {
@@ -712,6 +713,7 @@ public final class DateUtils {
      * 返回给定时间的小时数 例如：时间（2004-08-01 3:12:23）将返回 03 时间（2004-08-01 19:12:23）将返回19
      *
      * @param pDate Date 给定时间
+     *
      * @return String 代表小时数的字符串
      */
     public static String getHour(Date pDate) {
@@ -726,14 +728,15 @@ public final class DateUtils {
     public static Calendar getTheLastDayOfTheMonth(int year, int month) {
         Calendar cal = new GregorianCalendar();
         cal.set(year, month, 1);
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH) - 1);
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                                        cal.get(Calendar.DAY_OF_MONTH) - 1);
 
     }
 
     public static boolean isFirstDayOfMonth(Date date) {
-        if (date == null)
+        if (date == null) {
             return false;
+        }
 
         // 如果date减一天后变成另一个月，便是该月的第一天
 
@@ -749,7 +752,9 @@ public final class DateUtils {
      * 取得指定日期所在周的前一周的第一天
      *
      * @param date
+     *
      * @return
+     *
      * @author yang_yun
      */
     public static Date getFirstDayOfLastWeek(Date date) {
@@ -771,7 +776,9 @@ public final class DateUtils {
      * 验证字符串是不是合法的日期；严格判断日期格式YYYYMMDD的正则表达式：包括闰年的判断、大月小月的判断
      *
      * @param dateString 待验证的日期字符串
+     *
      * @return 满足则返回true，不满足则返回false
+     *
      * @author zhangpeng mrd3.4.0
      */
     public static boolean validateDateString(String dateString) {
@@ -781,22 +788,19 @@ public final class DateUtils {
         }
 
         // 日期格式YYYYMMDD的正则表达式,世纪年为闰年，如2000
-        String regDate = "^(((([02468][048])|([13579][26]))[0]{2})(02)(([0][1-9])|([1-2][0-9])))"
-                +
-                // 世纪年不为闰年如2100
-                "|(((([02468][1235679])|([13579][01345789]))[0]{2})(02)(([0][1-9])|([1][0-9])|([2][0-8])))"
-                +
-                // 非世纪年为闰年，如1996
-                "|(([0-9]{2}(([0][48])|([2468][048])|([13579][26])))(02)(([0][1-9])|([1-2][0-9])))"
-                +
-                // 非世纪年不为闰年，如1997
-                "|(([0-9]{2}(([02468][1235679])|([13579][01345789])))(02)(([0][1-9])|([1][0-9])|([2][0-8])))"
-                +
-                // 大月，有31天
-                "|(([0-9]{4})(([0]{1}(1|3|5|7|8))|10|12)(([0][1-9])|([1-2][0-9])|30|31))"
-                +
-                // 小月，只有30天
-                "|(([0-9]{4})(([0]{1}(4|6|9))|11)(([0][1-9])|([1-2][0-9])|30))$";
+        String regDate = "^(((([02468][048])|([13579][26]))[0]{2})(02)(([0][1-9])|([1-2][0-9])))" +
+                             // 世纪年不为闰年如2100
+                             "|(((([02468][1235679])|([13579][01345789]))[0]{2})(02)(([0][1-9])|([1][0-9])|([2][0-8])" +
+                             "))" +
+                             // 非世纪年为闰年，如1996
+                             "|(([0-9]{2}(([0][48])|([2468][048])|([13579][26])))(02)(([0][1-9])|([1-2][0-9])))" +
+                             // 非世纪年不为闰年，如1997
+                             "|(([0-9]{2}(([02468][1235679])|([13579][01345789])))(02)(([0][1-9])|([1][0-9])|" +
+                             "([2][0-8])))" +
+                             // 大月，有31天
+                             "|(([0-9]{4})(([0]{1}(1|3|5|7|8))|10|12)(([0][1-9])|([1-2][0-9])|30|31))" +
+                             // 小月，只有30天
+                             "|(([0-9]{4})(([0]{1}(4|6|9))|11)(([0][1-9])|([1-2][0-9])|30))$";
 
         return dateString.matches(regDate);
     }
@@ -807,8 +811,7 @@ public final class DateUtils {
     public static Calendar getDateCeil(Date date) {
         Calendar cal = new GregorianCalendar();
         cal.setTime(date);
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -817,8 +820,8 @@ public final class DateUtils {
     public static Calendar getDateFloor(Date date) {
         Calendar cal = new GregorianCalendar();
         cal.setTime(date);
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 0);
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+                                        23, 0);
     }
 
     /**
@@ -826,8 +829,7 @@ public final class DateUtils {
      */
     public static Calendar getCurDateCeil() {
         Calendar cal = new GregorianCalendar();
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -835,13 +837,14 @@ public final class DateUtils {
      */
     public static Calendar getCurDateFloor() {
         Calendar cal = new GregorianCalendar();
-        return new GregorianCalendar(cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 0);
+        return new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+                                        23, 0);
     }
 
     public static Date getStartOfDate(Date date) {
-        if (date == null)
+        if (date == null) {
             return date;
+        }
 
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(date.getTime());
@@ -854,8 +857,9 @@ public final class DateUtils {
     }
 
     public static Date getEndOfDate(Date date) {
-        if (date == null)
+        if (date == null) {
             return date;
+        }
 
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(date.getTime());
@@ -868,6 +872,7 @@ public final class DateUtils {
 
     /**
      * @return long
+     *
      * @throws
      * @Title: getTimeInSeconds
      * @Description: 返回服务器时间的秒数
@@ -881,7 +886,9 @@ public final class DateUtils {
      * 获取服务器时间的毫秒数
      *
      * @param
+     *
      * @return 返回服务器时间的毫秒数
+     *
      * @author zhangpingan
      * @author zhangpingan mrd Beidou2.0.0
      */
@@ -894,18 +901,17 @@ public final class DateUtils {
      * @param dateString
      * @param format1    ，如yyyyMMdd
      * @param format2    , 如yyyy/MM/dd
+     *
      * @return
+     *
      * @author zhangpingan
      */
-    public static String formatDateString(String dateString, String format1,
-                                          String format2) {
+    public static String formatDateString(String dateString, String format1, String format2) {
         if (dateString == null) {
             return null;
         }
-        java.text.SimpleDateFormat beforeFormat = new java.text.SimpleDateFormat(
-                format1);
-        java.text.SimpleDateFormat endFormat = new java.text.SimpleDateFormat(
-                format2);
+        java.text.SimpleDateFormat beforeFormat = new java.text.SimpleDateFormat(format1);
+        java.text.SimpleDateFormat endFormat = new java.text.SimpleDateFormat(format2);
         try {
             return endFormat.format(beforeFormat.parse(dateString));
         } catch (ParseException e) {
@@ -918,7 +924,9 @@ public final class DateUtils {
      * 解析从doris获取的日期
      *
      * @param doirsDate
+     *
      * @return
+     *
      * @author kanghongwei
      */
     public static String formatDorisReturnDate(Object doirsDate, Format format) {
@@ -936,17 +944,16 @@ public final class DateUtils {
      * @param startDate
      * @param endDate
      * @param format
+     *
      * @return
+     *
      * @author kanghongwei
      */
-    public static List<String> getDayListBetween2Day(String startDate,
-                                                     String endDate, Format format) {
+    public static List<String> getDayListBetween2Day(String startDate, String endDate, Format format) {
         List<String> dayList = new ArrayList<String>();
-        int dataNum = Integer.parseInt(getTwoDay2String(startDate, endDate,
-                format));
+        int dataNum = Integer.parseInt(getTwoDay2String(startDate, endDate, format));
         for (int i = 0; i < (dataNum + 1); i++) {
-            String resultDate = getNextDay2String(startDate, String.valueOf(i),
-                    format);
+            String resultDate = getNextDay2String(startDate, String.valueOf(i), format);
             dayList.add(resultDate);
         }
         return dayList;
@@ -958,18 +965,18 @@ public final class DateUtils {
      * @param startDate
      * @param endDate
      * @param format
+     *
      * @return
+     *
      * @author kanghongwei
      */
-    public static String getTwoDay2String(String startDate, String endDate,
-                                          Format format) {
+    public static String getTwoDay2String(String startDate, String endDate, Format format) {
         SimpleDateFormat localFormat = (SimpleDateFormat) format;
         long day = 0;
         try {
             java.util.Date startDay = localFormat.parse(startDate);
             java.util.Date endDay = localFormat.parse(endDate);
-            day = (endDay.getTime() - startDay.getTime())
-                    / (24 * 60 * 60 * 1000);
+            day = (endDay.getTime() - startDay.getTime()) / (24 * 60 * 60 * 1000);
         } catch (Exception e) {
             return "";
         }
@@ -982,18 +989,18 @@ public final class DateUtils {
      * @param startDate
      * @param endDate
      * @param format
+     *
      * @return
+     *
      * @author zhangbi
      */
-    public static long getTwoDaysBetweenNumber(String startDate,
-                                               String endDate, Format format) {
+    public static long getTwoDaysBetweenNumber(String startDate, String endDate, Format format) {
         SimpleDateFormat localFormat = (SimpleDateFormat) format;
         long day = 0;
         try {
             java.util.Date startDay = localFormat.parse(startDate);
             java.util.Date endDay = localFormat.parse(endDate);
-            day = (endDay.getTime() - startDay.getTime())
-                    / (24 * 60 * 60 * 1000);
+            day = (endDay.getTime() - startDay.getTime()) / (24 * 60 * 60 * 1000);
         } catch (Exception e) {
             return 0;
         }
@@ -1006,17 +1013,17 @@ public final class DateUtils {
      * @param nowdate
      * @param delay
      * @param format
+     *
      * @return
+     *
      * @author kanghongwei
      */
-    public static String getNextDay2String(String nowdate, String delay,
-                                           Format format) {
+    public static String getNextDay2String(String nowdate, String delay, Format format) {
         try {
             SimpleDateFormat localFormat = (SimpleDateFormat) format;
             String mdate = "";
             Date date = strToDateWithFormat(nowdate, localFormat);
-            long myTime = (date.getTime() / 1000) + Integer.parseInt(delay)
-                    * 24 * 60 * 60;
+            long myTime = (date.getTime() / 1000) + Integer.parseInt(delay) * 24 * 60 * 60;
             date.setTime(myTime * 1000);
             mdate = localFormat.format(date);
             return mdate;
@@ -1030,7 +1037,9 @@ public final class DateUtils {
      *
      * @param strDate
      * @param format
+     *
      * @return
+     *
      * @author kanghongwei
      */
     public static Date strToDateWithFormat(String strDate, Format format) {
@@ -1046,11 +1055,12 @@ public final class DateUtils {
      * @param startDate
      * @param endDate
      * @param specificDate
+     *
      * @return
+     *
      * @author kanghongwei
      */
-    public static boolean isBetweenDate(Date startDate, Date endDate,
-                                        Date specificDate) {
+    public static boolean isBetweenDate(Date startDate, Date endDate, Date specificDate) {
         long startTm = getDateCeil(startDate).getTimeInMillis();
         long endTm = getDateCeil(endDate).getTimeInMillis();
         long specificTm = getDateCeil(specificDate).getTimeInMillis();
@@ -1068,14 +1078,14 @@ public final class DateUtils {
      * @param endDate
      * @param format
      * @param specificDate
+     *
      * @return
+     *
      * @author kanghongwei
      */
-    public static boolean isBetweenDate(String startDate, String endDate,
-                                        Format format, String specificDate) {
+    public static boolean isBetweenDate(String startDate, String endDate, Format format, String specificDate) {
         boolean result = false;
-        List<String> dateList = getDayListBetween2Day(startDate, endDate,
-                format);
+        List<String> dateList = getDayListBetween2Day(startDate, endDate, format);
         for (String date : dateList) {
             if (date.equalsIgnoreCase(specificDate)) {
                 return true;
@@ -1100,9 +1110,8 @@ public final class DateUtils {
      *
      * @param format
      * @param date
-     * @return
      */
-    public final static String getDateString(String format, Date date) {
+    public static String getDateString(String format, Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
     }
@@ -1114,17 +1123,15 @@ public final class DateUtils {
      * @param date1End   时间段1结束
      * @param date2Start 时间段2开始
      * @param date2End   时间段2结束
+     *
      * @return <p/>
      * <code>true</code>:有重合
      * <p/>
      * <code>false</code>:无重合
      */
-    public final static boolean isOverlay(Date date1Start, Date date1End,
-                                          Date date2Start, Date date2End) {
-        return ((date1Start.getTime() >= date2Start.getTime()) && date1Start
-                .getTime() <= date2End.getTime())
-                || ((date2Start.getTime() >= date1Start.getTime()) && date2Start
-                .getTime() <= date1End.getTime());
+    public static boolean isOverlay(Date date1Start, Date date1End, Date date2Start, Date date2End) {
+        return ((date1Start.getTime() >= date2Start.getTime()) && date1Start.getTime() <= date2End.getTime()) ||
+                   ((date2Start.getTime() >= date1Start.getTime()) && date2Start.getTime() <= date1End.getTime());
     }
 
     /**
@@ -1135,14 +1142,14 @@ public final class DateUtils {
      * @param date2StartStr 时间段2开始
      * @param date2EndStr   时间段2结束
      * @param patten
+     *
      * @return <p/>
      * <code>true</code>:有重合
      * <p/>
      * <code>false</code>:无重合
      */
-    public final static boolean isOverlay(String date1StartStr,
-                                          String date1EndStr, String date2StartStr, String date2EndStr,
-                                          String patten) {
+    public static boolean isOverlay(String date1StartStr, String date1EndStr, String date2StartStr, String date2EndStr,
+                                    String patten) {
         Date date1Start = DateUtils.parseDate(date1StartStr, patten);
         Date date1End = DateUtils.parseDate(date1EndStr, patten);
         Date date2Start = DateUtils.parseDate(date2StartStr, patten);
@@ -1155,10 +1162,8 @@ public final class DateUtils {
      *
      * @param startDate 开始时间
      * @param endDate   结束时间
-     * @return
      */
-    public final static long getDaysBetweenIgnoreTime(String startDate,
-                                                      String endDate, Format format) {
+    public static long getDaysBetweenIgnoreTime(String startDate, String endDate, Format format) {
         SimpleDateFormat localFormat = (SimpleDateFormat) format;
         try {
             java.util.Date startDay = localFormat.parse(startDate);
@@ -1174,10 +1179,8 @@ public final class DateUtils {
      *
      * @param startDate 开始时间
      * @param endDate   结束时间
-     * @return
      */
-    public final static long getDaysBetweenIgnoreTime(Date startDate,
-                                                      Date endDate) {
+    public static long getDaysBetweenIgnoreTime(Date startDate, Date endDate) {
         startDate = getRoundedDay(startDate);
         endDate = getNextDay(endDate);
         return getBetweenDate(startDate, endDate);
